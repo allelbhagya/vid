@@ -1,0 +1,17 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Black and White Videos</title>
+    <link rel="stylesheet" href="{% static 'videoapp/styles.css' %}">
+
+    </head>
+<body>
+    <h2>Black and White Videos</h2>
+    <ul>
+    {% for video in bw_videos %}
+        <li><a href="{% url 'play_selected_video' video %}">{{ video }}</a></li>
+    {% endfor %}
+    </ul>
+</body>
+</html>

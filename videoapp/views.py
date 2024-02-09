@@ -13,9 +13,9 @@ def upload_video(request):
         
         # Convert the uploaded video to MPEG-4 AAC and H.264
         input_video_path = os.path.join(settings.MEDIA_ROOT, 'videos', video_file.name)
-        output_video_path = os.path.join(settings.MEDIA_ROOT, 'videos', 'converted_' + video_file.name)
+        output_video_path = os.path.join(settings.MEDIA_ROOT, 'videos', 'bw_' + video_file.name)
         if convert_video(input_video_path, output_video_path):
-            return redirect('play_video', video_name='converted_' + video_file.name)
+            return redirect('play_video', video_name='bw_' + video_file.name)
         else:
             return render(request, 'upload.html', {'error': 'Failed to convert video.'})
     
@@ -56,3 +56,16 @@ def convert_video(video_path, output_path):
     out.release()
     
     return True
+
+def play_video(request):
+    bw_videos = []
+    video_dir = os.path.join(settings.MEDIA_ROOT, 'videos')
+    for filename in os.listdir(video_dir):
+        if filename.startswith('bw_'):
+            bw_videos.append(filename)
+    
+    return render(request, 'play_list.html', {'bw_videos': bw_videos})
+
+def play_selected_video(request, video_name):
+    video_url = os.path.join(settings.MEDIA_URL, 'videos', video_name)
+    return render(request, 'play.html', {'video_url': video_url})

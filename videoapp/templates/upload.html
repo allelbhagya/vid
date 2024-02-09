@@ -1,14 +1,21 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
     <title>Upload Video</title>
+    <link rel="stylesheet" href="{% static 'videoapp/styles.css' %}">
 </head>
 <body>
     <h2>Upload Video</h2>
-    <form method="post" enctype="multipart/form-data">
+    <form class="upload-form" method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        <input type="file" name="video_file">
-        <input type="submit" value="Upload">
+        <input class="upload-input" type="file" name="video_file">
+        <input class="upload-button" type="submit" value="Upload">
+        <br>
+        <div class="down">
+                    <a href="{% url 'play_video' %}" class="play-button">Play Videos</a>
+        </div>
+
     </form>
 </body>
 </html>
