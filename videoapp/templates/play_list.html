@@ -12,8 +12,8 @@
             box-sizing: border-box;
         }
         body {
-            background-color: #f5f5f5;
-            padding: 20px;
+            background-color: #fcfcfc;
+            padding: 10px;
         }
         h2 {
             margin-bottom: 20px;
@@ -46,28 +46,57 @@
         .search-button:hover {
             background-color: #0d3b66;
         }
-        .button {
-            width: 20%;
-            background-color: #114c80;
-            color: #ffffff;
-            padding: 15px 0;
-            font-size: 18px;
-            font-weight: 600;
-            border-radius: 5px;
-            cursor: pointer;
-            text-decoration: none;
-            display: block;
-            text-align: center;
-            border: none;
-            margin-bottom: 10px;
-        }
-        .button:hover {
-            background-color: #0d3b66;
-        }
+.top-nav {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+.bar {
+    padding: 10px;
+}
+
+.black {
+    background-color: #ffffff;
+}
+
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+.item {
+    color: #000;
+    text-decoration: none;
+    display: inline-block;
+    margin: 0;
+    padding: 10px 20px;
+    font-size: 16px;
+}
+
+.button {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+.padding-large {
+    padding: 16px 20px;
+}
+.search-container{
+    padding-top: 50px;
+}
     </style>
 </head>
 <body>
     <h2>Video Library</h2>
+    <div class="top-nav">
+  <div class="bar black card">
+    <a href="{% url 'upload_video' %}"  class="item button padding-large">HOME</a>
+    <a href="{% url 'play_video' %}" class="item button padding-large">VIDEO LIBRARY</a>
+    <a href="/auth/login" class="item button padding-large">LOGOUT</a>
+  </div>
+</div>
     <div class="search-container">
         <input type="text" class="search-input" id="searchInput" placeholder="Search by video name">
     </div>
