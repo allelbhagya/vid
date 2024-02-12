@@ -20,6 +20,7 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('video/', include('videoapp.urls')),
+    path('auth/', include('auth.urls')),
 ]
 
 from django.conf import settings

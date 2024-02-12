@@ -1,21 +1,39 @@
 {% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Upload Video</title>
-    <link rel="stylesheet" href="{% static 'videoapp/styles.css' %}">
+<title>Template</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="{% static 'videoapp/upload.css' %}">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-    <h2>Upload Video</h2>
+
+<!-- Navbar -->
+<div class="top-nav">
+  <div class="bar black card">
+    <a href="{% url 'upload_video' %}"  class="item button padding-large">HOME</a>
+    <a href="{% url 'play_video' %}" class="item button padding-large">VIDEO LIBRARY</a>
+    <a href="/auth/login" class="item button padding-large">LOGOUT</a>
+  </div>
+</div>
+
+<!-- Page content -->
+<div class="content" style="max-width:2000px;margin-top:46px">
+
+  <!-- Upload Section -->
+  <div class="container content padding-64" style="max-width:800px" id="upload">
+    <h2 class="wide">UPLOAD YOUR FILES</h2>
     <form class="upload-form" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <input class="upload-input" type="file" name="video_file">
-        <input class="upload-button" type="submit" value="Upload">
-        <br>
-        <div class="down">
-                    <a href="{% url 'play_video' %}" class="play-button">Play Videos</a>
-        </div>
-
+        <input class="button" type="submit" value="Upload"> 
     </form>
+    <br>
+  </div>
+
+</div>
 </body>
 </html>

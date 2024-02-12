@@ -2,16 +2,131 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Black and White Videos</title>
+    <title>Video Library</title>
     <link rel="stylesheet" href="{% static 'videoapp/styles.css' %}">
+    <style>
+        * {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: #fcfcfc;
+            padding: 10px;
+        }
+        h2 {
+            margin-bottom: 20px;
+        }
+        ul {
+            list-style-type: none;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        .search-container {
+            margin-bottom: 20px;
+            display: flex;
+        }
+        .search-input {
+            flex: 1;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-right: 10px;
+        }
+        .search-button {
+            background-color: #114c80;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .search-button:hover {
+            background-color: #0d3b66;
+        }
+.top-nav {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
 
-    </head>
+.bar {
+    padding: 10px;
+}
+
+.black {
+    background-color: #ffffff;
+}
+
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+.item {
+    color: #000;
+    text-decoration: none;
+    display: inline-block;
+    margin: 0;
+    padding: 10px 20px;
+    font-size: 16px;
+}
+
+.button {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+.padding-large {
+    padding: 16px 20px;
+}
+.search-container{
+    padding-top: 50px;
+}
+    </style>
+</head>
 <body>
-    <h2>Black and White Videos</h2>
-    <ul>
-    {% for video in bw_videos %}
-        <li><a href="{% url 'play_selected_video' video %}">{{ video }}</a></li>
+    <h2>Video Library</h2>
+    <div class="top-nav">
+  <div class="bar black card">
+    <a href="{% url 'upload_video' %}"  class="item button padding-large">HOME</a>
+    <a href="{% url 'play_video' %}" class="item button padding-large">VIDEO LIBRARY</a>
+    <a href="/auth/login" class="item button padding-large">LOGOUT</a>
+  </div>
+</div>
+    <div class="search-container">
+        <input type="text" class="search-input" id="searchInput" placeholder="Search by video name">
+    </div>
+    <ul id="videoList">
+        {% for video, creation_date in bw_videos %}
+        <li>
+            <a href="{% url 'play_selected_video' video %}">{{ video }}</a>
+            <span class="creation-date">Created: {{ creation_date }}</span>
+        </li>
     {% endfor %}
     </ul>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('searchInput');
+            const videoList = document.getElementById('videoList').getElementsByTagName('li');
+
+            searchInput.addEventListener('input', function() {
+                const searchTerm = searchInput.value.toLowerCase();
+
+                for (let i = 0; i < videoList.length; i++) {
+                    const videoName = videoList[i].innerText.toLowerCase();
+                    if (videoName.includes(searchTerm)) {
+                        videoList[i].style.display = 'block';
+                    } else {
+                        videoList[i].style.display = 'none';
+                    }
+                }
+            });
+        });
+    </script>
 </body>
 </html>
